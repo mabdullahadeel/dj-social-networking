@@ -1,0 +1,5 @@
+<form action="" method="POST" class="ui form" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">Update</button>
+</form>

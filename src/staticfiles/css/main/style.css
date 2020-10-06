@@ -1,0 +1,15 @@
+body {
+    background: #eeeeee !important;
+}
+
+.nav-custom {
+    border-radius: 0px !important;
+    padding: 10px 0 10px 0 !important;
+    background-color: #396afc !important;
+    z-index: 100;
+}
+
+.nav-custom{
+    position: sticky;
+    top: 0;
+}

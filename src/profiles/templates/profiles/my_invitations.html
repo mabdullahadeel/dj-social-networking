@@ -1,0 +1,58 @@
+{% extends 'frontend/base.html' %}
+
+{% block title %}
+Friend Requests
+{% endblock title %}
+
+{% block content %}
+
+<div class="container">
+    {% if is_empty %}
+    <h1>No Friend Request</h1>
+    {% endif %}
+
+    {% if not is_empty %}
+    {% for item in qs %}
+    <h1>Friend Request</h1>
+    <div class="ui segment ">
+        <div class="ui grid">
+            <div class="row">
+                <div class="three wide column">
+                    <img class="ui small circular image m-1 ml-2" src={{ item.avatar.url }}>
+                </div>
+                <div class="thirten wide column">
+                    <h3>{{ item.user }}</h3>
+                    <p>{{ item.bio }}</p>
+                    <a href={% url 'profiles:profile' item.slug %}>
+                        <button class='btn btn-primary m-1 btn-lg'>See Profile</button>
+                    </a>
+
+                    <div class="row m-1">
+                        <!-- Friend Request Accept Form -->
+                        <form action={% url 'profiles:accept_request' %} method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name='profile_pk' value={{item.pk}}>
+                            <button type="submit" class="btn btn-success m-1 btn-lg">
+                                <i class='check icon'></i> Accept
+                            </button>
+                        </form>
+
+                        <form action="{% url 'profiles:reject_request' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name='profile_pk' value={{item.pk}}>
+                            <button type="submit" class="btn btn-outline-danger m-1 btn-lg">
+                                <i class='close icon'></i> Decline
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    </ol>
+    {% endif %}
+
+</div>
+
+{% endblock content %}

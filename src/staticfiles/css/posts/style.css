@@ -1,0 +1,12 @@
+.bwhite_lg {
+    background-color: transparent !important;
+}
+
+.bwhite_sm {
+    background-color: transparent !important;
+    width: 10px !important;
+}
+
+.comment-box {
+    display: none;
+}

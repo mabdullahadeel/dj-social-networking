@@ -1,0 +1,21 @@
+{% extends 'frontend/base.html' %}
+
+{% block title %}
+Home
+{% endblock title %}
+
+{% block content %}
+<h1 class="my-class">
+    {{ message }}
+</h1>
+<br>
+{{ user }}
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    console.log("Hello From Home")
+</script>
+{% endblock scripts %}
+
+<h1>Hello</h1>

@@ -1,0 +1,18 @@
+{% extends 'frontend/base.html' %}
+
+{% block title %}
+Friend Requests
+{% endblock title %}
+
+{% block content %}
+
+<div class="container">
+    <h1>You can invite these friends</h1>
+    <ol>
+        {% for item in qs %}
+        <li>{{item}}</li>
+        {% endfor %}
+    </ol>
+</div>
+
+{% endblock content %}

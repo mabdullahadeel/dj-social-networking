@@ -1,0 +1,66 @@
+{% url 'posts:home_post_view' as 'main_post_url'  %}
+
+<style>
+    .nav-custom {
+        position: sticky;
+        margin-top: -20px;
+    }
+</style>
+
+
+<div class="ui inverted menu mb-6 mt-0 nav-custom">
+    <div class="ui container">
+        <a href="" class="item">
+            <h3>facegram</h3>
+        </a>
+        {% if request.user.is_authenticated %}
+        <a href="{{ main_post_url }}" class="{% if request.path == '/' %}active{% endif %} item">
+            Home
+        </a>
+
+        {% endif %}
+
+        <div class="right menu">
+            {% if request.user.is_authenticated %}
+            <div class="item">
+                <div class="ui floating dropdown icon button teal"> Friends
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="" class="item">
+                            All Profiles
+                        </a>
+                        <a href="" class="item">
+                            Send Invites
+                        </a>
+                        <a href="" class="item">
+                            Received Invites
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+                <form action="" method="GET">
+                    <div class="ui action left icon input">
+                        <input class="prompt" type="text" name='q' placeholder="Search Facegram ...">
+                        <i class="search icon"></i>
+                        <button type='submit' class="ui button">Search</button>
+                    </div>
+                </form>
+            </div>
+
+            <a href="" class="item">
+                <img src="{{ profile_picture.url }}" class="ui avatar image">
+                {{ request.user }}
+            </a>
+
+            <a href="" class="ui item">
+                Logout
+            </a>
+            {% else %}
+            <a href="" class="ui item">
+                Login
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>

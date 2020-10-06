@@ -1,0 +1,15 @@
+<!-- LEFT CONTAINER -->
+<!-- Post CREATE FORM -->
+<div class="container">
+    <h3>Post Something</h3>
+    {% if post_added %}
+    <div class="ui green message">
+        Post Added
+    </div>
+    {% endif %}
+    <form action="" method="POST" class="ui fluid form" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{post_create_form}}
+        <button type="submit" class="btn btn-primary mt-2" name="submit_post_form">POST</button>
+    </form>
+</div>

@@ -1,0 +1,66 @@
+{% extends 'frontend/base.html' %}
+
+{% block title %}
+Friend Requests
+{% endblock title %}
+
+{% block content %}
+
+{% if is_empty %}
+<h1>Opps...! No one to add roght now. Come back later</h1>
+{% else %}
+<div class="container">
+    <h1>Friends to Add</h1>
+    {% for item in qs %}
+    <div class="ui segment">
+        <div class="ui grid">
+            <div class="row">
+                <div class="col-2 order-first pl-5">
+                    <img class="ui small circular image" src={{item.avatar.url}}>
+                </div>
+                <div class="col-10 order-last pl-2">
+                    <h3>{{ item.user.username }}</h3>
+                    <p>{{ item.bio }}</p>
+
+                    <div class="row">
+                        <a href={% url 'profiles:profile' item.slug %}>
+                            <button class='btn btn-primary m-1 btn-lg'>See Profile</button>
+                        </a>
+                        {% if item.user not in rel_receiver and item.user not in rel_sender %}
+                        <form action={% url 'profiles:send_friend_request' %} method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="profile_pk" value={{ item.pk }}>
+
+                            <button type="submit" class="btn btn-outline-success btn-lg m-1">
+                                <i class="plus square icon"></i> Add Friend
+                            </button>
+                        </form>
+                        {% endif %}
+
+                        {% if item.user in rel_receiver and request.user not in item.friends.all %}
+                        <button class="btn btn-secondary btn-lg disabled m-1">
+                            <i class="user icon"></i> Request Sent
+                        </button>
+                        {% endif %}
+
+                        {% if request.user in item.friends.all %}
+                        <form action={% url 'profiles:unfriend' %} method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="profile_pk" value={{ item.pk }}>
+                            <button type="submit" class="btn btn-outline-danger btn-lg m-1">
+                                <i class="minus square icon "></i> Unfriend
+                            </button>
+                        </form>
+                        {% endif %}
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% endblock content %}
